@@ -15,7 +15,16 @@ class _HomePageState extends State<HomePage> {
         height: double.infinity,
         color: Colors.white,
         child: Stack(
-          children: [CircleWidget(size: 200.0)],
+          children: [
+            Positioned(
+              top: -100,
+              left: -50,
+              child: CircleWidget(
+                size: 200.0,
+                colors: [Colors.orange, Colors.deepOrangeAccent],
+              ),
+            )
+          ],
         ),
       ),
     );
