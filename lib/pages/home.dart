@@ -17,13 +17,21 @@ class _HomePageState extends State<HomePage> {
         child: Stack(
           children: [
             Positioned(
+              top: -140,
+              right: -50,
+              child: CircleWidget(
+                size: 340.0,
+                colors: [Colors.pinkAccent, Colors.pink],
+              ),
+            ),
+            Positioned(
               top: -100,
               left: -50,
               child: CircleWidget(
-                size: 200.0,
+                size: 240.0,
                 colors: [Colors.orange, Colors.deepOrangeAccent],
               ),
-            )
+            ),
           ],
         ),
       ),
