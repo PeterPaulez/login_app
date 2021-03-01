@@ -1,3 +1,4 @@
+import 'package:api_login_app/utils/responsive.dart';
 import 'package:api_login_app/widgets/circle.dart';
 import 'package:api_login_app/widgets/icon.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    final double sizeBasePink = size.width * 0.8;
-    final double sizeBaseOrange = size.width * 0.57;
+    final Responsive responsive = Responsive.of(context);
+    final double sizeBasePink = responsive.withPercent(80);
+    final double sizeBaseOrange = responsive.withPercent(57);
 
     return Scaffold(
       body: Container(
@@ -40,7 +41,19 @@ class _HomePageState extends State<HomePage> {
             ),
             Positioned(
               top: sizeBasePink * 0.35,
-              child: IconWidget(size: size.width * 0.17),
+              child: Column(
+                children: [
+                  IconWidget(size: responsive.withPercent(17)),
+                  SizedBox(height: responsive.diagonalPercent(3)),
+                  Text(
+                    'Hello again\nWelcome Back!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: responsive.diagonalPercent(1.6),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
