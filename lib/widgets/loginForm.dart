@@ -12,18 +12,37 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 30,
-      left: 0, // Esto es para que el COLUMN pueda calcular el ancho
-      right: 0, // Esto es para que el COLUMN pueda calcular el ancho
+      bottom: 50,
+      left: 20, // Esto es para que el COLUMN pueda calcular el ancho
+      right: 20, // Esto es para que el COLUMN pueda calcular el ancho
       child: Column(
         children: <Widget>[
           InputTextWidget(
             labelText: 'EMAIL ADDRESS',
             keyboardType: TextInputType.emailAddress,
           ),
-          InputTextWidget(
-            labelText: 'PASSWORD',
-            obscureText: true,
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.black12),
+              ),
+            ),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: InputTextWidget(
+                    labelText: 'PASSWORD',
+                    obscureText: true,
+                    borderEnabled: false,
+                  ),
+                ),
+                MaterialButton(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  onPressed: () {},
+                  child: Text('Forgot Password'),
+                ),
+              ],
+            ),
           ),
         ],
       ),

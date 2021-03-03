@@ -19,47 +19,50 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          color: Colors.white,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Positioned(
-                top: -sizeBasePink * 0.4,
-                right: -sizeBasePink * 0.2,
-                child: CircleWidget(
-                  size: sizeBasePink,
-                  colors: [Colors.pinkAccent, Colors.pink],
+        child: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            // Hay que poner un tamaño fijo para que no reviente el ScrollView
+            height: responsive.height,
+            color: Colors.white,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  top: -sizeBasePink * 0.4,
+                  right: -sizeBasePink * 0.2,
+                  child: CircleWidget(
+                    size: sizeBasePink,
+                    colors: [Colors.pinkAccent, Colors.pink],
+                  ),
                 ),
-              ),
-              Positioned(
-                top: -sizeBaseOrange * 0.55,
-                left: -sizeBaseOrange * 0.15,
-                child: CircleWidget(
-                  size: sizeBaseOrange,
-                  colors: [Colors.orange, Colors.deepOrangeAccent],
+                Positioned(
+                  top: -sizeBaseOrange * 0.55,
+                  left: -sizeBaseOrange * 0.15,
+                  child: CircleWidget(
+                    size: sizeBaseOrange,
+                    colors: [Colors.orange, Colors.deepOrangeAccent],
+                  ),
                 ),
-              ),
-              Positioned(
-                top: sizeBasePink * 0.35,
-                child: Column(
-                  children: [
-                    IconWidget(size: responsive.withPercent(17)),
-                    SizedBox(height: responsive.diagonalPercent(3)),
-                    Text(
-                      'Hello again\nWelcome Back!!!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: responsive.diagonalPercent(1.6),
+                Positioned(
+                  top: sizeBasePink * 0.35,
+                  child: Column(
+                    children: [
+                      IconWidget(size: responsive.withPercent(17)),
+                      SizedBox(height: responsive.diagonalPercent(3)),
+                      Text(
+                        'Hello again\nWelcome Back!!!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: responsive.diagonalPercent(1.6),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              LoginFormWidget(),
-            ],
+                LoginFormWidget(),
+              ],
+            ),
           ),
         ),
       ),
