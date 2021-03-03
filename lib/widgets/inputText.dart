@@ -6,6 +6,8 @@ class InputTextWidget extends StatelessWidget {
   final bool obscureText;
   final bool borderEnabled;
   final double fontSize;
+  final void Function(String text) onChanged;
+  final String Function(String text) validator;
   const InputTextWidget({
     Key key,
     this.labelText = '',
@@ -13,11 +15,15 @@ class InputTextWidget extends StatelessWidget {
     this.obscureText = false,
     this.borderEnabled = true,
     this.fontSize = 15,
+    this.onChanged,
+    this.validator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: this.onChanged,
+      validator: this.validator,
       keyboardType: this.keyboardType,
       obscureText: this.obscureText,
       style: TextStyle(fontSize: this.fontSize),
