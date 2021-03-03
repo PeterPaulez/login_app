@@ -5,19 +5,22 @@ class InputTextWidget extends StatelessWidget {
   final TextInputType keyboardType;
   final bool obscureText;
   final bool borderEnabled;
-  const InputTextWidget(
-      {Key key,
-      this.labelText = '',
-      this.keyboardType = TextInputType.text,
-      this.obscureText = false,
-      this.borderEnabled = true})
-      : super(key: key);
+  final double fontSize;
+  const InputTextWidget({
+    Key key,
+    this.labelText = '',
+    this.keyboardType = TextInputType.text,
+    this.obscureText = false,
+    this.borderEnabled = true,
+    this.fontSize = 15,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: this.keyboardType,
       obscureText: this.obscureText,
+      style: TextStyle(fontSize: this.fontSize),
       decoration: InputDecoration(
         enabledBorder: this.borderEnabled
             ? UnderlineInputBorder(
