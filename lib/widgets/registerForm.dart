@@ -1,3 +1,4 @@
+import 'package:api_login_app/api/auth.dart';
 import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/utils/responsive.dart';
 import 'package:api_login_app/widgets/inputText.dart';
@@ -22,6 +23,12 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
     print("userName => $_userName");
     if (isOk) {
       // Api Reques y LOGIN
+      final AuthApi _authApi = AuthApi();
+      _authApi.register(
+        userName: _userName,
+        email: _email,
+        password: _password,
+      );
     }
   }
 
