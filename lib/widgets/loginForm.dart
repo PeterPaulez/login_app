@@ -11,10 +11,15 @@ class LoginFormWidget extends StatefulWidget {
 
 class _LoginFormWidgetState extends State<LoginFormWidget> {
   GlobalKey<FormState> _formKey = GlobalKey();
-  String _email, _password = '';
+  String _email = '', _password = '';
   _submit() {
     final isOk = _formKey.currentState.validate();
     print("isok => $isOk");
+    print("email => $_email");
+    print("password => $_password");
+    if (isOk) {
+      // Api Reques y LOGIN
+    }
   }
 
   @override
@@ -36,7 +41,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 fontSize: responsive.diagonalPercent(1.4),
                 onChanged: (text) => _email = text,
                 validator: (text) {
-                  print(text);
                   if (!text.contains("@") ||
                       text == null ||
                       text.trim().length <= 4) {
@@ -108,7 +112,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                     ),
                   ),
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.pushNamed(context, 'register'),
                     child: Text(
                       'Sign up',
                       style: TextStyle(
