@@ -1,5 +1,7 @@
+import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/utils/responsive.dart';
 import 'package:api_login_app/widgets/inputText.dart';
+import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 import 'package:flutter/material.dart';
 
 class RegisterFormWidget extends StatefulWidget {
@@ -100,7 +102,16 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                     ),
                   ),
                   MaterialButton(
-                    onPressed: () => Navigator.pushNamed(context, 'login'),
+                    onPressed: () {
+                      RouteTransitions(
+                        context: context,
+                        child: LoginPage(),
+                        animation: AnimationType.slideRight,
+                        duration: Duration(milliseconds: 1000),
+                        replacement: true,
+                        curveType: CurveType.bounce,
+                      );
+                    },
                     child: Text(
                       'Sign in',
                       style: TextStyle(

@@ -1,7 +1,9 @@
+import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/utils/responsive.dart';
 import 'package:api_login_app/widgets/avatarRegister.dart';
 import 'package:api_login_app/widgets/circle.dart';
 import 'package:api_login_app/widgets/registerForm.dart';
+import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -74,7 +76,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: Icon(Icons.arrow_back),
                       borderRadius: BorderRadius.circular(30),
                       padding: EdgeInsets.all(10),
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () {
+                        RouteTransitions(
+                          context: context,
+                          child: LoginPage(),
+                          animation: AnimationType.slideRight,
+                          duration: Duration(milliseconds: 1000),
+                          replacement: true,
+                          curveType: CurveType.bounce,
+                        );
+                      },
                     ),
                   ),
                 ),
