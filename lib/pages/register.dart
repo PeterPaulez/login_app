@@ -1,6 +1,7 @@
 import 'package:api_login_app/utils/responsive.dart';
 import 'package:api_login_app/widgets/avatarRegister.dart';
 import 'package:api_login_app/widgets/circle.dart';
+import 'package:api_login_app/widgets/registerForm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -63,6 +64,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                 ),
+                RegisterFormWidget(),
                 Positioned(
                   left: 15,
                   top: 10,
@@ -75,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       onPressed: () => Navigator.pop(context),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
