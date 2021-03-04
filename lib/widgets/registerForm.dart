@@ -1,10 +1,12 @@
 import 'package:api_login_app/api/auth.dart';
+import 'package:api_login_app/helpers/httpResponse.dart';
 import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/utils/dialog.dart';
 import 'package:api_login_app/utils/responsive.dart';
 import 'package:api_login_app/widgets/inputText.dart';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 class RegisterFormWidget extends StatefulWidget {
   RegisterFormWidget({Key key}) : super(key: key);
@@ -16,6 +18,7 @@ class RegisterFormWidget extends StatefulWidget {
 class _RegisterFormWidgetState extends State<RegisterFormWidget> {
   GlobalKey<FormState> _formKey = GlobalKey();
   String _email, _password, _userName = '';
+  Logger _logger = Logger();
 
   Future<void> _submit() async {
     final isOk = _formKey.currentState.validate();
@@ -26,12 +29,20 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
     if (isOk) {
       ProgressDialog.show(context);
       final AuthApi _authApi = AuthApi();
-      await _authApi.register(
+      final HttpResponse response = await _authApi.register(
         userName: _userName,
         email: _email,
         password: _password,
       );
       ProgressDialog.dissmiss(context);
+
+      if (response.data != null) {
+        _logger.i('Registro OK ${response.data}');
+      } else {
+        _logger.e('Registro KO ${response.error.statusCode}');
+        _logger.e('Registro KO ${response.error.message}');
+        _logger.e('Registro KO ${response.error.data}');
+      }
     }
   }
 
