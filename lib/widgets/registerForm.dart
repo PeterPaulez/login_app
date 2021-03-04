@@ -1,5 +1,6 @@
 import 'package:api_login_app/api/auth.dart';
 import 'package:api_login_app/pages/login.dart';
+import 'package:api_login_app/utils/dialog.dart';
 import 'package:api_login_app/utils/responsive.dart';
 import 'package:api_login_app/widgets/inputText.dart';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
@@ -15,20 +16,22 @@ class RegisterFormWidget extends StatefulWidget {
 class _RegisterFormWidgetState extends State<RegisterFormWidget> {
   GlobalKey<FormState> _formKey = GlobalKey();
   String _email, _password, _userName = '';
-  _submit() {
+
+  Future<void> _submit() async {
     final isOk = _formKey.currentState.validate();
     print("isok => $isOk");
     print("email => $_email");
     print("password => $_password");
     print("userName => $_userName");
     if (isOk) {
-      // Api Reques y LOGIN
+      ProgressDialog.show(context);
       final AuthApi _authApi = AuthApi();
-      _authApi.register(
+      await _authApi.register(
         userName: _userName,
         email: _email,
         password: _password,
       );
+      ProgressDialog.dissmiss(context);
     }
   }
 

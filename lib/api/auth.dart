@@ -13,6 +13,9 @@ class AuthApi {
     @required String password,
   }) async {
     try {
+      // Simular más tiempo del real
+      Future.delayed(Duration(seconds: 2));
+
       final response = await _dio.post<Map<String, dynamic>>(
         '$baseUrl/api/v1/register',
         options: Options(headers: {
