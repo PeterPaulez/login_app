@@ -1,4 +1,5 @@
 import 'package:api_login_app/utils/responsive.dart';
+import 'package:api_login_app/widgets/avatarRegister.dart';
 import 'package:api_login_app/widgets/circle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,13 +58,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       SizedBox(height: responsive.withPercent(5)),
-                      ClipOval(
-                        child: Image.network(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw9cnEvZ98kadKb7ZIhW20sXOTNVlEsH1q4Q&usqp=CAU',
-                          height: responsive.withPercent(25),
-                          width: responsive.withPercent(25),
-                        ),
-                      ),
+                      AvatarRegisterWidget(
+                          imageSize: responsive.withPercent(25))
                     ],
                   ),
                 ),
@@ -76,7 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: Icon(Icons.arrow_back),
                       borderRadius: BorderRadius.circular(30),
                       padding: EdgeInsets.all(10),
-                      onPressed: () {},
+                      onPressed: () => Navigator.pop(context),
                     ),
                   ),
                 )

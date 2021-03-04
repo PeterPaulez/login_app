@@ -43,7 +43,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 validator: (text) {
                   if (!text.contains("@") ||
                       text == null ||
-                      text.trim().length <= 4) {
+                      text.trim().length < 5) {
                     return 'Invalid E-mail';
                   }
                   return null;
@@ -66,7 +66,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                         fontSize: responsive.diagonalPercent(1.4),
                         onChanged: (text) => _password = text,
                         validator: (text) {
-                          if (text == null || text.trim().length <= 4) {
+                          if (text == null || text.trim().length < 6) {
                             return 'Invalid Password (Minimum 6 chars)';
                           }
                           return null;
