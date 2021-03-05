@@ -1,85 +1,38 @@
+import 'package:api_login_app/helpers/http.dart';
 import 'package:api_login_app/helpers/httpResponse.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart' show required;
 
 class AuthApi {
-  final Dio _dio = Dio();
-  final String baseUrl = 'https://curso-api-flutter.herokuapp.com';
+  final Http _http;
+  AuthApi(this._http);
 
   Future<HttpResponse> register({
     @required String userName,
     @required String email,
     @required String password,
-  }) async {
-    try {
-      // Simular más tiempo del real
-      //Future.delayed(Duration(seconds: 2));
-
-      final response = await _dio.post<Map<String, dynamic>>(
-        '$baseUrl/api/v1/register',
-        // Content-Type': 'application/json' es por default en DIO
-        data: {
-          "username": userName,
-          "email": email,
-          "password": password,
-        },
-      );
-
-      return HttpResponse.success(response.data);
-    } catch (e) {
-      int statusCode = -1;
-      String message = 'unkown error';
-      dynamic data;
-      if (e is DioError) {
-        message = e.message;
-        if (e.response != null) {
-          statusCode = e.response.statusCode;
-          message = e.response.statusMessage;
-          data = e.response.data;
-        }
-      }
-      return HttpResponse.fail(
-        statusCode: statusCode,
-        message: message,
-        data: data,
-      );
-    }
+  }) {
+    return _http.request(
+      '/api/v1/register',
+      method: 'POST',
+      data: {
+        "username": userName,
+        "email": email,
+        "password": password,
+      },
+    );
   }
 
   Future<HttpResponse> login({
     @required String email,
     @required String password,
-  }) async {
-    try {
-      // Simular más tiempo del real
-      //Future.delayed(Duration(seconds: 2));
-
-      final response = await _dio.post<Map<String, dynamic>>(
-        '$baseUrl/api/v1/login',
-        data: {
-          "email": email,
-          "password": password,
-        },
-      );
-
-      return HttpResponse.success(response.data);
-    } catch (e) {
-      int statusCode = -1;
-      String message = 'unkown error';
-      dynamic data;
-      if (e is DioError) {
-        message = e.message;
-        if (e.response != null) {
-          statusCode = e.response.statusCode;
-          message = e.response.statusMessage;
-          data = e.response.data;
-        }
-      }
-      return HttpResponse.fail(
-        statusCode: statusCode,
-        message: message,
-        data: data,
-      );
-    }
+  }) {
+    return _http.request(
+      '/api/v1/login',
+      method: 'POST',
+      data: {
+        "email": email,
+        "password": password,
+      },
+    );
   }
 }

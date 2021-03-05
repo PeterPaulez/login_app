@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'dart:convert';
 import 'package:logger/logger.dart';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
@@ -31,8 +32,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
     print("userName => $_userName");
     if (isOk) {
       ProgressDialog.show(context);
-      final AuthApi _authApi = AuthApi();
-      final HttpResponse response = await _authApi.register(
+      final HttpResponse response = await GetIt.instance<AuthApi>().register(
         userName: _userName,
         email: _email,
         password: _password,

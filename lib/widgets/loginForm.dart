@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 
@@ -29,7 +30,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     print("password => $_password");
     if (isOk) {
       ProgressDialog.show(context);
-      final AuthApi _authApi = AuthApi();
+      final _authApi = GetIt.instance<AuthApi>();
       final HttpResponse response = await _authApi.login(
         email: _email,
         password: _password,
@@ -151,7 +152,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'New to Friendly Desi?',
+                    'Are you new here?',
                     style: TextStyle(
                       fontSize: responsive.diagonalPercent(1.5),
                     ),
