@@ -18,15 +18,16 @@ class Http {
     _logsEnabled = logsEnabled;
   }
 
-  Future<HttpResponse> request(
+  Future<HttpResponse<T>> request<T>(
     String path, {
     String method = 'GET',
     Map<String, dynamic> queryParameters,
     Map<String, dynamic> data,
     Map<String, String> headers,
+    T Function(dynamic data) parser,
   }) async {
     try {
-      final response = await _dio.request<Map<String, dynamic>>(
+      final response = await _dio.request(
         path,
         options: Options(
           method: method,
@@ -36,7 +37,10 @@ class Http {
         data: data,
       );
 
-      return HttpResponse.success(response.data);
+      if (parser != null) {
+        return HttpResponse.success<T>(parser(response.data));
+      }
+      return HttpResponse.success<T>(response.data);
     } catch (e) {
       int statusCode = -1;
       String message = 'unkown error';

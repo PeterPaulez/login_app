@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart' show required;
 
-class HttpResponse {
-  final dynamic data;
+class HttpResponse<T> {
+  final T data;
   final HttpError error;
 
   HttpResponse(this.data, this.error);
 
-  static HttpResponse success(dynamic data) => HttpResponse(data, null);
+  static HttpResponse<T> success<T>(dynamic data) => HttpResponse(data, null);
 
-  static HttpResponse fail({
+  static HttpResponse<T> fail<T>({
     @required int statusCode,
     @required String message,
     @required dynamic data,

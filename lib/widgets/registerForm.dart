@@ -5,7 +5,6 @@ import 'package:logger/logger.dart';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 
 import 'package:api_login_app/api/auth.dart';
-import 'package:api_login_app/helpers/httpResponse.dart';
 import 'package:api_login_app/pages/home.dart';
 import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/utils/dialog.dart';
@@ -32,7 +31,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
     print("userName => $_userName");
     if (isOk) {
       ProgressDialog.show(context);
-      final HttpResponse response = await GetIt.instance<AuthApi>().register(
+      final response = await GetIt.instance<AuthApi>().register(
         userName: _userName,
         email: _email,
         password: _password,

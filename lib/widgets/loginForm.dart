@@ -4,7 +4,6 @@ import 'package:logger/logger.dart';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 
 import 'package:api_login_app/api/auth.dart';
-import 'package:api_login_app/helpers/httpResponse.dart';
 import 'package:api_login_app/pages/home.dart';
 import 'package:api_login_app/pages/register.dart';
 import 'package:api_login_app/utils/dialog.dart';
@@ -31,7 +30,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     if (isOk) {
       ProgressDialog.show(context);
       final _authApi = GetIt.instance<AuthApi>();
-      final HttpResponse response = await _authApi.login(
+      final response = await _authApi.login(
         email: _email,
         password: _password,
       );
