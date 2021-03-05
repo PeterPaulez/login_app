@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:api_login_app/api/auth.dart';
 import 'package:api_login_app/helpers/httpResponse.dart';
+import 'package:api_login_app/pages/home.dart';
 import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/utils/dialog.dart';
 import 'package:api_login_app/utils/responsive.dart';
@@ -38,10 +41,30 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
 
       if (response.data != null) {
         _logger.i('Registro OK ${response.data}');
+        RouteTransitions(
+          context: context,
+          child: HomePage(),
+          animation: AnimationType.slideLeft,
+          duration: Duration(milliseconds: 1000),
+          replacement: true,
+          curveType: CurveType.bounce,
+        );
       } else {
         _logger.e('Registro KO ${response.error.statusCode}');
         _logger.e('Registro KO ${response.error.message}');
         _logger.e('Registro KO ${response.error.data}');
+        String message = response.error.message;
+        if (response.error.statusCode == -1) {
+          message = 'Bad Network';
+        } else if (response.error.statusCode == 409) {
+          message =
+              'Duplicated user data: ${jsonEncode(response.error.data["duplicatedFields"])}';
+        }
+        TextDialog.alert(
+          context,
+          title: 'Error',
+          content: message,
+        );
       }
     }
   }
