@@ -17,11 +17,46 @@ class AuthApi {
 
       final response = await _dio.post<Map<String, dynamic>>(
         '$baseUrl/api/v1/register',
-        options: Options(headers: {
-          'Content-Type': 'application/json',
-        }),
+        // Content-Type': 'application/json' es por default en DIO
         data: {
           "username": userName,
+          "email": email,
+          "password": password,
+        },
+      );
+
+      return HttpResponse.success(response.data);
+    } catch (e) {
+      int statusCode = -1;
+      String message = 'unkown error';
+      dynamic data;
+      if (e is DioError) {
+        message = e.message;
+        if (e.response != null) {
+          statusCode = e.response.statusCode;
+          message = e.response.statusMessage;
+          data = e.response.data;
+        }
+      }
+      return HttpResponse.fail(
+        statusCode: statusCode,
+        message: message,
+        data: data,
+      );
+    }
+  }
+
+  Future<HttpResponse> login({
+    @required String email,
+    @required String password,
+  }) async {
+    try {
+      // Simular más tiempo del real
+      //Future.delayed(Duration(seconds: 2));
+
+      final response = await _dio.post<Map<String, dynamic>>(
+        '$baseUrl/api/v1/login',
+        data: {
           "email": email,
           "password": password,
         },

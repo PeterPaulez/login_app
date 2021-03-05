@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:logger/logger.dart';
+import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 
 import 'package:api_login_app/api/auth.dart';
 import 'package:api_login_app/helpers/httpResponse.dart';
@@ -7,9 +10,6 @@ import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/utils/dialog.dart';
 import 'package:api_login_app/utils/responsive.dart';
 import 'package:api_login_app/widgets/inputText.dart';
-import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
-import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 
 class RegisterFormWidget extends StatefulWidget {
   RegisterFormWidget({Key key}) : super(key: key);
