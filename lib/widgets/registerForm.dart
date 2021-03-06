@@ -43,9 +43,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
         await _authLocal.saveSession(response);
         RouteTransitions(
           context: context,
-          child: HomePage(),
+          child: HomePage(token: response.token),
           animation: AnimationType.slideLeft,
-          duration: Duration(milliseconds: 1000),
+          duration: Duration(milliseconds: 2000),
           replacement: true,
           curveType: CurveType.bounce,
         );
@@ -148,7 +148,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                         context: context,
                         child: LoginPage(),
                         animation: AnimationType.slideRight,
-                        duration: Duration(milliseconds: 1000),
+                        duration: Duration(milliseconds: 2000),
                         replacement: true,
                         curveType: CurveType.bounce,
                       );

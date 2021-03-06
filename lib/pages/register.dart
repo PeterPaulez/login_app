@@ -81,7 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           context: context,
                           child: LoginPage(),
                           animation: AnimationType.slideRight,
-                          duration: Duration(milliseconds: 1000),
+                          duration: Duration(milliseconds: 2000),
                           replacement: true,
                           curveType: CurveType.bounce,
                         );

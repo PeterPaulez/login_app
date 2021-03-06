@@ -6,7 +6,8 @@ import 'package:get_it/get_it.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = 'home';
-  HomePage({Key key}) : super(key: key);
+  final String token;
+  HomePage({Key key, this.token}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.pinkAccent,
       ),
       body: Center(
-        child: Text('Home Page'),
+        child: Text('Home Page\nToken: ${widget.token}'),
       ),
     );
   }
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       child: LoginPage(),
       animation: AnimationType.slideBottom,
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 2000),
       replacement: true,
       curveType: CurveType.bounce,
     );

@@ -42,9 +42,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         await _authLocal.saveSession(response);
         RouteTransitions(
           context: context,
-          child: HomePage(),
+          child: HomePage(token: response.token),
           animation: AnimationType.slideLeft,
-          duration: Duration(milliseconds: 1000),
+          duration: Duration(milliseconds: 2000),
           replacement: true,
           curveType: CurveType.bounce,
         );
@@ -161,7 +161,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                         context: context,
                         child: RegisterPage(),
                         animation: AnimationType.slideLeft,
-                        duration: Duration(milliseconds: 1000),
+                        duration: Duration(milliseconds: 2000),
                         replacement: true,
                         curveType: CurveType.bounce,
                       );

@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
         context: context,
         child: LoginPage(),
         animation: AnimationType.slideTop,
-        duration: Duration(milliseconds: 1000),
+        duration: Duration(milliseconds: 2000),
         replacement: true,
         curveType: CurveType.bounce,
       );
@@ -38,9 +38,9 @@ class _SplashPageState extends State<SplashPage> {
     }
     RouteTransitions(
       context: context,
-      child: HomePage(),
+      child: HomePage(token: token),
       animation: AnimationType.slideTop,
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 2000),
       replacement: true,
       curveType: CurveType.bounce,
     );
