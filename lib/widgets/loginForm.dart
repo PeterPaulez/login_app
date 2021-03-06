@@ -1,4 +1,5 @@
 import 'package:api_login_app/models/authResponse.dart';
+import 'package:api_login_app/services/authLocal.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
@@ -37,6 +38,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       print(response);
 
       if (response.statusCode == 200) {
+        final _authLocal = GetIt.instance<AuthLocal>();
+        await _authLocal.saveSession(response);
         RouteTransitions(
           context: context,
           child: HomePage(),

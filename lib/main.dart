@@ -2,6 +2,7 @@ import 'package:api_login_app/helpers/dependencyInjection.dart';
 import 'package:api_login_app/pages/home.dart';
 import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/pages/register.dart';
+import 'package:api_login_app/pages/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginPage(),
+      home: SplashPage(),
       routes: {
         RegisterPage.routeName: (_) => RegisterPage(),
         LoginPage.routeName: (_) => LoginPage(),
