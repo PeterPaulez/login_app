@@ -1,4 +1,6 @@
+import 'package:api_login_app/models/user.dart';
 import 'package:api_login_app/pages/login.dart';
+import 'package:api_login_app/services/accountApi.dart';
 import 'package:api_login_app/services/authLocal.dart';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final AuthLocal _authLocal = GetIt.instance<AuthLocal>();
+  final AccountApi _accountApi = GetIt.instance<AccountApi>();
+  User _user;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadUser();
+    });
+  }
+
+  Future<void> _loadUser() async {
+    final response = await _accountApi.getUserInfo();
+    if (response.username != null) {
+      print(response.username);
+      _user = response;
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +52,27 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.pinkAccent,
       ),
       body: Center(
-        child: Text('Home Page\nToken: ${widget.token}'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Home Page\nToken: ${widget.token}',
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(height: 10),
+            if (_user == null) CircularProgressIndicator(),
+            if (_user != null)
+              Column(
+                children: [
+                  Text(_user.id),
+                  Text(_user.email),
+                  Text(_user.username),
+                  Text('Gikla'),
+                ],
+              ),
+          ],
+        ),
       ),
     );
   }

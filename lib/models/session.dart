@@ -23,7 +23,7 @@ class Session {
     return {
       "token": this.token,
       "expiresIn": this.expiresIn,
-      "createdAt": this.createdAt.toString(),
+      "createdAt": this.createdAt.toIso8601String(),
     };
   }
 }

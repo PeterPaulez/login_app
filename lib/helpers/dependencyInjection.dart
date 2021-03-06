@@ -1,3 +1,4 @@
+import 'package:api_login_app/services/accountApi.dart';
 import 'package:api_login_app/services/authApi.dart';
 import 'package:api_login_app/services/authLocal.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -11,5 +12,8 @@ abstract class DependencyInjection {
     final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
     final AuthLocal authLocal = AuthLocal(_secureStorage);
     GetIt.instance.registerSingleton<AuthLocal>(authLocal);
+
+    final AccountApi accountApi = AccountApi(authLocal);
+    GetIt.instance.registerSingleton<AccountApi>(accountApi);
   }
 }

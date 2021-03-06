@@ -3,12 +3,6 @@ import 'package:flutter/material.dart' show required;
 import 'package:dio/dio.dart';
 
 class AuthApi {
-  final Dio _dio = Dio(
-    BaseOptions(baseUrl: 'https://curso-api-flutter.herokuapp.com'),
-  );
-  //Logger _logger;
-  //bool _logsEnabled;
-
   Future<AuthResponse> register({
     @required String userName,
     @required String email,
@@ -46,6 +40,9 @@ class AuthApi {
     Map<String, dynamic> data,
     Map<String, String> headers,
   }) async {
+    final Dio _dio = Dio(
+      BaseOptions(baseUrl: 'https://curso-api-flutter.herokuapp.com'),
+    );
     try {
       final response = await _dio.request(
         path,
