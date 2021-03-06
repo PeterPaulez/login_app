@@ -1,4 +1,4 @@
-import 'package:api_login_app/api/auth.dart';
+import 'package:api_login_app/services/auth.dart';
 import 'package:get_it/get_it.dart';
 
 abstract class DependencyInjection {

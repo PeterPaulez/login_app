@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'dart:convert';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 
-import 'package:api_login_app/api/auth.dart';
+import 'package:api_login_app/services/auth.dart';
 import 'package:api_login_app/pages/home.dart';
 import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/utils/dialog.dart';
