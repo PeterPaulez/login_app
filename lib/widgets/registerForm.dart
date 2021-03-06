@@ -1,7 +1,7 @@
+import 'package:api_login_app/models/authResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'dart:convert';
-import 'package:logger/logger.dart';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 
 import 'package:api_login_app/api/auth.dart';
@@ -21,7 +21,6 @@ class RegisterFormWidget extends StatefulWidget {
 class _RegisterFormWidgetState extends State<RegisterFormWidget> {
   GlobalKey<FormState> _formKey = GlobalKey();
   String _email, _password, _userName = '';
-  Logger _logger = Logger();
 
   Future<void> _submit() async {
     final isOk = _formKey.currentState.validate();
@@ -31,15 +30,14 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
     print("userName => $_userName");
     if (isOk) {
       ProgressDialog.show(context);
-      final response = await GetIt.instance<AuthApi>().register(
+      final AuthResponse response = await GetIt.instance<AuthApi>().register(
         userName: _userName,
         email: _email,
         password: _password,
       );
       ProgressDialog.dissmiss(context);
 
-      if (response.data != null) {
-        _logger.i('Registro OK ${response.data}');
+      if (response.statusCode == 200) {
         RouteTransitions(
           context: context,
           child: HomePage(),
@@ -49,15 +47,12 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
           curveType: CurveType.bounce,
         );
       } else {
-        _logger.e('Registro KO ${response.error.statusCode}');
-        _logger.e('Registro KO ${response.error.message}');
-        _logger.e('Registro KO ${response.error.data}');
-        String message = response.error.message;
-        if (response.error.statusCode == -1) {
+        String message = response.message;
+        if (response.statusCode == -1) {
           message = 'Bad Network';
-        } else if (response.error.statusCode == 409) {
+        } else if (response.statusCode == 409) {
           message =
-              'Duplicated user data: ${jsonEncode(response.error.data["duplicatedFields"])}';
+              'Duplicated user data: ${jsonEncode(response.duplicatedFields)}';
         }
         TextDialog.alert(
           context,

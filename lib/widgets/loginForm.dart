@@ -1,6 +1,6 @@
+import 'package:api_login_app/models/authResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:logger/logger.dart';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 
 import 'package:api_login_app/api/auth.dart';
@@ -20,7 +20,6 @@ class LoginFormWidget extends StatefulWidget {
 class _LoginFormWidgetState extends State<LoginFormWidget> {
   GlobalKey<FormState> _formKey = GlobalKey();
   String _email = '', _password = '';
-  Logger _logger = Logger();
 
   Future<void> _submit() async {
     final isOk = _formKey.currentState.validate();
@@ -30,14 +29,14 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     if (isOk) {
       ProgressDialog.show(context);
       final _authApi = GetIt.instance<AuthApi>();
-      final response = await _authApi.login(
+      final AuthResponse response = await _authApi.login(
         email: _email,
         password: _password,
       );
       ProgressDialog.dissmiss(context);
+      print(response);
 
-      if (response.data != null) {
-        _logger.i('Login OK ${response.data}');
+      if (response.statusCode == 200) {
         RouteTransitions(
           context: context,
           child: HomePage(),
@@ -47,15 +46,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           curveType: CurveType.bounce,
         );
       } else {
-        _logger.e('Login KO ${response.error.statusCode}');
-        _logger.e('Login KO ${response.error.message}');
-        _logger.e('Login KO ${response.error.data}');
-        String message = response.error.message;
-        if (response.error.statusCode == -1) {
+        String message = response.message;
+        if (response.statusCode == -1) {
           message = 'Bad Network';
-        } else if (response.error.statusCode == 403) {
+        } else if (response.statusCode == 403) {
           message = 'Invalid password';
-        } else if (response.error.statusCode == 404) {
+        } else if (response.statusCode == 404) {
           message = 'Invalid email';
         }
         TextDialog.alert(
@@ -111,8 +107,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                         fontSize: responsive.diagonalPercent(1.4),
                         onChanged: (text) => _password = text,
                         validator: (text) {
-                          if (text == null || text.trim().length < 6) {
-                            return 'Invalid Password (Minimum 6 chars)';
+                          if (text == null || text.trim().length < 4) {
+                            return 'Invalid Password (Minimum 4 chars)';
                           }
                           return null;
                         },

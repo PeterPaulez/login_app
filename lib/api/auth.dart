@@ -1,18 +1,20 @@
-import 'package:api_login_app/helpers/http.dart';
-import 'package:api_login_app/helpers/httpResponse.dart';
 import 'package:api_login_app/models/authResponse.dart';
 import 'package:flutter/material.dart' show required;
+import 'package:dio/dio.dart';
 
 class AuthApi {
-  final Http _http;
-  AuthApi(this._http);
+  final Dio _dio = Dio(
+    BaseOptions(baseUrl: 'https://curso-api-flutter.herokuapp.com'),
+  );
+  //Logger _logger;
+  //bool _logsEnabled;
 
-  Future<HttpResponse<AuthResponse>> register({
+  Future<AuthResponse> register({
     @required String userName,
     @required String email,
     @required String password,
   }) {
-    return _http.request<AuthResponse>(
+    return request(
       '/api/v1/register',
       method: 'POST',
       data: {
@@ -20,26 +22,68 @@ class AuthApi {
         "email": email,
         "password": password,
       },
-      parser: (data) {
-        return AuthResponse.fromJson(data);
-      },
     );
   }
 
-  Future<HttpResponse<AuthResponse>> login({
+  Future<AuthResponse> login({
     @required String email,
     @required String password,
   }) {
-    return _http.request<AuthResponse>(
+    return request(
       '/api/v1/login',
       method: 'POST',
       data: {
         "email": email,
         "password": password,
       },
-      parser: (data) {
-        return AuthResponse.fromJson(data);
-      },
     );
+  }
+
+  Future<AuthResponse> request(
+    String path, {
+    String method = 'GET',
+    Map<String, dynamic> queryParameters,
+    Map<String, dynamic> data,
+    Map<String, String> headers,
+  }) async {
+    try {
+      final response = await _dio.request(
+        path,
+        options: Options(
+          method: method,
+          headers: headers,
+        ),
+        queryParameters: queryParameters,
+        data: data,
+      );
+
+      final AuthResponse authResponse = AuthResponse.fromJson({
+        'token': response.data['token'],
+        'expiresin': response.data['expiresin'],
+        'statusCode': response.statusCode,
+      });
+      return authResponse;
+    } catch (e) {
+      int statusCode = -1;
+      String message = 'unkown error';
+      List duplicatedFields;
+      print(e.response.data);
+      if (e is DioError) {
+        message = e.message;
+        if (e.response != null) {
+          statusCode = e.response.statusCode;
+          message = e.response.statusMessage;
+          duplicatedFields = e.response.data['duplicatedFields'];
+        }
+      }
+
+      final AuthResponse authResponse = AuthResponse.fromJson({
+        'message': message,
+        'duplicatedFields': duplicatedFields,
+        'statusCode': statusCode,
+      });
+
+      return authResponse;
+    }
   }
 }
