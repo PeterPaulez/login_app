@@ -43,13 +43,36 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    String tokenMini = widget.token;
+    if (tokenMini.length > 35) {
+      tokenMini = '${tokenMini.substring(0, 35)}...';
+    }
+    final TextStyle textStyleTitle = TextStyle(
+      fontWeight: FontWeight.bold,
+      color: Colors.pinkAccent,
+    );
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        leading: Container(
+          padding: EdgeInsets.all(7),
+          child: CircleAvatar(
+            child: Text('Me',
+                style: TextStyle(fontSize: 16, color: Colors.pinkAccent)),
+            backgroundColor: Colors.white,
+            maxRadius: 14,
+          ),
+        ),
+        title: Column(
+          children: [
+            Text('Home Page', style: TextStyle(fontSize: 20)),
+            Text('User logged', style: TextStyle(fontSize: 10)),
+          ],
+        ),
         actions: [
           MaterialButton(
             onPressed: _signOut,
-            child: Icon(Icons.logout),
+            child: Icon(Icons.logout, color: Colors.white),
           ),
         ],
         backgroundColor: Colors.pinkAccent,
@@ -58,19 +81,39 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Home Page\nToken: ${widget.token}',
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(height: 10),
             if (_user == null) CircularProgressIndicator(),
             if (_user != null)
               Column(
                 children: [
-                  Text('ID: ${_user.id}'),
-                  Text('EMAIL: ${_user.email}'),
-                  Text('NAME: ${_user.username}'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Token: ', style: textStyleTitle),
+                      Text(tokenMini),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('UserId: ', style: textStyleTitle),
+                      Text(_user.id),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Email: ', style: textStyleTitle),
+                      Text(_user.email),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('UserName: ', style: textStyleTitle),
+                      Text(_user.username),
+                    ],
+                  ),
                 ],
               ),
           ],
