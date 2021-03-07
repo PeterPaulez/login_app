@@ -1,16 +1,17 @@
-import 'package:api_login_app/models/authResponse.dart';
-import 'package:api_login_app/services/authLocal.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'dart:convert';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 
+import 'package:api_login_app/services/authLocal.dart';
 import 'package:api_login_app/services/authApi.dart';
-import 'package:api_login_app/pages/home.dart';
-import 'package:api_login_app/pages/login.dart';
-import 'package:api_login_app/utils/dialog.dart';
 import 'package:api_login_app/utils/responsive.dart';
+import 'package:api_login_app/utils/dialog.dart';
+import 'package:api_login_app/utils/logs.dart';
+import 'package:api_login_app/pages/login.dart';
+import 'package:api_login_app/pages/home.dart';
 import 'package:api_login_app/widgets/inputText.dart';
+import 'package:api_login_app/models/authResponse.dart';
 
 class RegisterFormWidget extends StatefulWidget {
   RegisterFormWidget({Key key}) : super(key: key);
@@ -37,6 +38,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
         password: _password,
       );
       ProgressDialog.dissmiss(context);
+      Logs.insta.i(response);
 
       if (response.statusCode == 200) {
         final _authLocal = GetIt.instance<AuthLocal>();

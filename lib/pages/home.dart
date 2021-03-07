@@ -31,10 +31,13 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadUser() async {
     final response = await _accountApi.getUserInfo();
+    print(response);
     if (response.username != null) {
       print(response.username);
       _user = response;
       setState(() {});
+    } else {
+      _signOut();
     }
   }
 
@@ -65,10 +68,9 @@ class _HomePageState extends State<HomePage> {
             if (_user != null)
               Column(
                 children: [
-                  Text(_user.id),
-                  Text(_user.email),
-                  Text(_user.username),
-                  Text('Gikla'),
+                  Text('ID: ${_user.id}'),
+                  Text('EMAIL: ${_user.email}'),
+                  Text('NAME: ${_user.username}'),
                 ],
               ),
           ],

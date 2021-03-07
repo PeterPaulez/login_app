@@ -30,4 +30,8 @@ class User {
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
       };
+
+  String toString() {
+    return 'ID: ${id.toString()}\nNAME: ${username.toString()}\nEMAIL: $email';
+  }
 }
