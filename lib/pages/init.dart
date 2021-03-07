@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class InitPage extends StatefulWidget {
+  static const routeName = 'init';
   InitPage({Key key}) : super(key: key);
 
   @override
@@ -12,7 +13,7 @@ class _InitPageState extends State<InitPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Init Page'),
+        title: Text('Empty Page'),
         actions: [],
         backgroundColor: Colors.pinkAccent,
       ),

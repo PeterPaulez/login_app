@@ -1,3 +1,4 @@
+import 'package:api_login_app/pages/init.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
@@ -120,7 +121,16 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                     ),
                     MaterialButton(
                       padding: EdgeInsets.symmetric(vertical: 10),
-                      onPressed: () {},
+                      onPressed: () {
+                        RouteTransitions(
+                          context: context,
+                          child: InitPage(),
+                          animation: AnimationType.slideLeft,
+                          duration: Duration(milliseconds: 2000),
+                          replacement: true,
+                          curveType: CurveType.bounce,
+                        );
+                      },
                       child: Text(
                         'Forgot Password',
                         style: TextStyle(
