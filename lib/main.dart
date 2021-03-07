@@ -1,6 +1,6 @@
 import 'package:api_login_app/helpers/dependencyInjection.dart';
 import 'package:api_login_app/pages/home.dart';
-import 'package:api_login_app/pages/init.dart';
+//import 'package:api_login_app/pages/init.dart';
 import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/pages/register.dart';
 import 'package:api_login_app/pages/splash.dart';

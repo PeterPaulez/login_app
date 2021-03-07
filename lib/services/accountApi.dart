@@ -12,7 +12,9 @@ class AccountApi {
     return request(
       '/api/v1/user-info',
       method: 'GET',
-      headers: {"token": token},
+      headers: {
+        "token": token,
+      },
     );
   }
 

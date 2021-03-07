@@ -26,4 +26,8 @@ class Session {
       "createdAt": this.createdAt.toIso8601String(),
     };
   }
+
+  String toString() {
+    return 'token: $token\nexpiresIn: ${expiresIn.toString()}\ncreatedAt: ${createdAt.toString()}';
+  }
 }

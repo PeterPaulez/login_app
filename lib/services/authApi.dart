@@ -33,6 +33,16 @@ class AuthApi {
     );
   }
 
+  Future<AuthResponse> refreshToken(String expiredToken) {
+    return request(
+      '/api/v1/refresh-token',
+      method: 'POST',
+      headers: {
+        "token": expiredToken,
+      },
+    );
+  }
+
   Future<AuthResponse> request(
     String path, {
     String method = 'GET',
@@ -56,7 +66,7 @@ class AuthApi {
 
       final AuthResponse authResponse = AuthResponse.fromJson({
         'token': response.data['token'],
-        'expiresin': response.data['expiresin'],
+        'expiresIn': response.data['expiresIn'],
         'statusCode': response.statusCode,
       });
       return authResponse;
