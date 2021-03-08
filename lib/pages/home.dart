@@ -2,7 +2,7 @@ import 'package:api_login_app/models/user.dart';
 import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/services/accountApi.dart';
 import 'package:api_login_app/services/authLocal.dart';
-import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
+import 'package:transitioner/transitioner.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _signOut() async {
     await _authLocal.signOut();
-    RouteTransitions(
+    Transitioner(
       context: context,
       child: LoginPage(),
       animation: AnimationType.slideBottom,

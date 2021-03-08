@@ -1,7 +1,7 @@
 import 'package:api_login_app/pages/home.dart';
 import 'package:api_login_app/pages/login.dart';
 import 'package:api_login_app/services/authLocal.dart';
-import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
+import 'package:transitioner/transitioner.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> _checkLogin() async {
     final String token = await _authLocal.accesToken;
     if (token == null) {
-      RouteTransitions(
+      Transitioner(
         context: context,
         child: LoginPage(),
         animation: AnimationType.slideTop,
@@ -36,7 +36,7 @@ class _SplashPageState extends State<SplashPage> {
       );
       return;
     }
-    RouteTransitions(
+    Transitioner(
       context: context,
       child: HomePage(token: token),
       animation: AnimationType.slideTop,

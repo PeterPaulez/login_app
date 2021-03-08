@@ -1,7 +1,7 @@
 import 'package:api_login_app/pages/init.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
+import 'package:transitioner/transitioner.dart';
 
 import 'package:api_login_app/services/authLocal.dart';
 import 'package:api_login_app/services/authApi.dart';
@@ -42,13 +42,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       if (response.statusCode == 200) {
         final _authLocal = GetIt.instance<AuthLocal>();
         await _authLocal.saveSession(response);
-        RouteTransitions(
+        Transitioner(
           context: context,
           child: HomePage(token: response.token),
           animation: AnimationType.slideLeft,
           duration: Duration(milliseconds: 2000),
           replacement: true,
-          curveType: CurveType.bounce,
+          curveType: CurveType.bounceOut,
         );
       } else {
         String message = response.message;
@@ -122,13 +122,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                     MaterialButton(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       onPressed: () {
-                        RouteTransitions(
+                        Transitioner(
                           context: context,
                           child: InitPage(),
                           animation: AnimationType.slideLeft,
                           duration: Duration(milliseconds: 2000),
                           replacement: true,
-                          curveType: CurveType.bounce,
+                          curveType: CurveType.elastic,
                         );
                       },
                       child: Text(
@@ -168,13 +168,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                   ),
                   MaterialButton(
                     onPressed: () {
-                      RouteTransitions(
+                      Transitioner(
                         context: context,
                         child: RegisterPage(),
                         animation: AnimationType.slideLeft,
                         duration: Duration(milliseconds: 2000),
                         replacement: true,
-                        curveType: CurveType.bounce,
+                        curveType: CurveType.linear,
                       );
                     },
                     child: Text(

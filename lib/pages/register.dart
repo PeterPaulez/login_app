@@ -3,9 +3,9 @@ import 'package:api_login_app/utils/responsive.dart';
 import 'package:api_login_app/widgets/avatarRegister.dart';
 import 'package:api_login_app/widgets/circle.dart';
 import 'package:api_login_app/widgets/registerForm.dart';
-import 'package:custom_route_transition_peterpaulez/custom_route_transition_peterpaulez.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:transitioner/transitioner.dart';
 
 class RegisterPage extends StatefulWidget {
   static const routeName = 'register';
@@ -77,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(30),
                       padding: EdgeInsets.all(10),
                       onPressed: () {
-                        RouteTransitions(
+                        Transitioner(
                           context: context,
                           child: LoginPage(),
                           animation: AnimationType.slideRight,
