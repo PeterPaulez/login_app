@@ -187,7 +187,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                   ),
                 ],
               ),
-              SizedBox(height: responsive.diagonalPercent(10)),
+              SizedBox(height: responsive.diagonalPercent(5)),
             ],
           ),
         ),

@@ -114,8 +114,8 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                 fontSize: responsive.diagonalPercent(1.4),
                 onChanged: (text) => _password = text,
                 validator: (text) {
-                  if (text == null || text.trim().length < 6) {
-                    return 'Invalid password (min 6 chars)';
+                  if (text == null || text.trim().length < 4) {
+                    return 'Invalid password (min 4 chars)';
                   }
                   return null;
                 },
@@ -165,7 +165,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                   ),
                 ],
               ),
-              SizedBox(height: responsive.diagonalPercent(10)),
+              SizedBox(height: responsive.diagonalPercent(5)),
             ],
           ),
         ),

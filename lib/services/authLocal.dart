@@ -1,17 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:api_login_app/models/authResponse.dart';
 import 'package:api_login_app/models/session.dart';
 import 'package:api_login_app/services/authApi.dart';
 import 'package:api_login_app/utils/logs.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthLocal {
-  final FlutterSecureStorage _secureStorage;
   final AuthApi _authApi;
   Completer _completer;
-  AuthLocal(this._secureStorage, this._authApi);
+  AuthLocal(this._authApi);
 
   Future<String> get accesToken async {
     if (_completer != null) {
@@ -25,7 +24,8 @@ class AuthLocal {
       }
     }
 
-    final data = await this._secureStorage.read(key: 'SESSION');
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final data = pref.get('SESSION');
     if (data != null) {
       final session = Session.fromJson(jsonDecode(data));
 
@@ -60,16 +60,18 @@ class AuthLocal {
   }
 
   Future<void> saveSession(AuthResponse authResponse) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     final Session session = Session(
       token: authResponse.token,
       expiresIn: authResponse.expiresIn,
       createdAt: DateTime.now(),
     );
     final data = jsonEncode(session.toJson());
-    await this._secureStorage.write(key: 'SESSION', value: data);
+    await pref.setString('SESSION', data);
   }
 
   Future<void> signOut() async {
-    await this._secureStorage.deleteAll();
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.remove('SESSION');
   }
 }
